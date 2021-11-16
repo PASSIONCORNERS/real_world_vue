@@ -4,69 +4,29 @@
     <img alt="Vue logo" src="../assets/logo.png" />
     <EventCard v-for="event in events" :key="event.id" :event="event" />
 
-    <div class="pagination">
-      <router-link
-        id="page-prev"
-        :to="{ name: 'EventList', query: { page: page - 1 } }"
-        rel="prev"
-        v-if="page != 1"
-        >&#60; Prev Page</router-link
-      >
-      <router-link
-        id="page-next"
-        :to="{ name: 'EventList', query: { page: page + 1 } }"
-        rel="next"
-        v-if="hasNextPage"
-        >Next Page &#62;</router-link
-      >
-    </div>
+    -->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import EventCard from "@/components/EventCard.vue"
-import EventSerivce from "@/services/EventService.js"
-
 export default {
   name: "EventList",
   props: ["page"],
   components: {
     EventCard,
   },
-  data() {
-    return {
-      events: null,
-      totalEvents: 0,
-    }
-  },
-  beforeRouteEnter(routeTo, RouteFrom, next) {
-    EventSerivce.getEvents(2, parseInt(routeTo.query.page) || 1)
-      .then((res) => {
-        next((comp) => {
-          comp.events = res.data
-          comp.totalEvents = res.headers["x-total-count"]
-        })
-      })
-      .catch(() => {
-        next({ name: "NetworkError" })
-      })
-  },
-  beforeRouteUpdate(routeTo) {
-    return EventSerivce.getEvents(2, parseInt(routeTo.query.page) || 1)
-      .then((res) => {
-        this.events = res.data
-        this.totalEvents = res.headers["x-total-count"]
-      })
-      .catch(() => {
-        return { name: "NetworkError" }
-      })
+  created() {
+    this.$store.dispatch("fetchEvents")
   },
   computed: {
-    hasNextPage() {
-      var totalPages = Math.ceil(this.totalEvents / 2)
-      return this.page < totalPages
+    events() {
+      return this.$store.state.events
     },
+    // hasNextPage() {
+    //   var totalPages = Math.ceil(this.totalEvents / 2)
+    //   return this.page < totalPages
+    // },
   },
 }
 </script>

@@ -5,7 +5,15 @@
 
 <script>
 export default {
-  props: ["event"],
+  props: ["id"],
+  created() {
+    this.$store.dispatch("fetchEvent", this.id)
+  },
+  computed: {
+    event() {
+      return this.$store.state.event
+    },
+  },
 }
 </script>
 
