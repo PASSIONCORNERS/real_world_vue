@@ -29,6 +29,26 @@
       "date": "July 22, 2022",
       "time": "11:00",
       "organizer": "Carey Wales"
+    },
+    {
+      "id": "8efbdddb-6b15-4f43-867b-cc2d63cfe587",
+      "category": "nature",
+      "title": "Lorem Ipsum",
+      "description": "This is a test",
+      "location": "NoWhere",
+      "date": "TestDate",
+      "time": "TestTime",
+      "organizer": "Phong Truong"
+    },
+    {
+      "id": "7eed14b7-c7b2-48ed-8c08-9c1863d03400",
+      "category": "",
+      "title": "Test Two",
+      "description": "lorem ipsum",
+      "location": "asdf",
+      "date": "asdl;fkj",
+      "time": "asdflkj",
+      "organizer": "Phong Truong"
     }
   ]
 }

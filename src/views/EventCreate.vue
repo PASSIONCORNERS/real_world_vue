@@ -13,37 +13,30 @@
           {{ option }}
         </option>
       </select>
-
       <h3>Name & describe your event</h3>
-
       <label>Title</label>
       <input v-model="event.title" type="text" placeholder="Title" />
-
       <label>Description</label>
       <input
         v-model="event.description"
         type="text"
         placeholder="Description"
       />
-
       <h3>Where is your event?</h3>
-
       <label>Location</label>
       <input v-model="event.location" type="text" placeholder="Location" />
-
       <h3>When is your event?</h3>
       <label>Date</label>
       <input v-model="event.date" type="text" placeholder="Date" />
-
       <label>Time</label>
       <input v-model="event.time" type="text" placeholder="Time" />
-
       <button type="submit">Submit</button>
     </form>
   </div>
 </template>
 <script>
 import { v4 as uuidV4 } from "uuid"
+import EventService from "@/services/EventService.js"
 export default {
   data() {
     return {
@@ -70,9 +63,18 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.event.id = uuidV4()
-      this.event.organizer = this.$store.state.user
-      console.log("Event:", this.event)
+      const event = {
+        ...this.event,
+        id: uuidV4(),
+        organizer: this.$store.state.user,
+      }
+      EventService.postEvent(event)
+        .then(() => {
+          this.$store.commit("ADD_EVENT", event)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
   },
 }
