@@ -3,6 +3,7 @@ import NProgress from "nprogress"
 import NotFound from "../components/NotFound"
 import NetworkError from "../views/NetworkError.vue"
 import EventList from "../views/EventList.vue"
+import EventCreate from "../views/EventCreate.vue"
 import EventDetail from "../views/event/Detail.vue"
 import EventLayout from "../views/event/Layout.vue"
 import EventRegister from "../views/event/Register.vue"
@@ -17,6 +18,11 @@ const routes = [
     name: "EventList",
     component: EventList,
     props: (route) => ({ page: parseInt(route.query.page) || 1 }),
+  },
+  {
+    path: "/event/create",
+    name: "EventCreate",
+    component: EventCreate,
   },
   {
     path: "/events/:id",
