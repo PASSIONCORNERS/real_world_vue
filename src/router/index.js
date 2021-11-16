@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"
 import NotFound from "../components/NotFound"
+import NetworkError from "../views/NetworkError.vue"
 import EventList from "../views/EventList.vue"
 import EventDetail from "../views/event/Detail.vue"
 import EventLayout from "../views/event/Layout.vue"
@@ -52,7 +53,21 @@ const routes = [
     path: "/about",
     redirect: { name: "About" },
   },
-  { path: "/:pathMatch(.*)", name: "bad-not-found", component: NotFound },
+  // events
+  {
+    path: "/404/:resource",
+    name: "404Resource",
+    component: NotFound,
+    props: true,
+  },
+  // network
+  {
+    path: "/network-error",
+    name: "NetworkError",
+    component: NetworkError,
+  },
+  // 404
+  { path: "/:catchAll(.*)", name: "NotFound", component: NotFound },
 ]
 
 const router = createRouter({
